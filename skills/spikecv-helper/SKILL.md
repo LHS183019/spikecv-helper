@@ -5,7 +5,7 @@ description: A helper skill for AI Agents to interact with the SpikeCV repositor
 
 # SpikeCV Agent Skill
 
-*last updated: 2026-04-24*
+*last updated: 2026-04-25*
 
 This document is designed to equip an AI Agent (or developer) with the necessary prior knowledge and instructions to answer questions and execute tasks within the SpikeCV repository.
 
@@ -36,18 +36,43 @@ spikecv-helper
 Content in this document is organized as follows:
 
 SKILL.md
+0. [How to Navigate This Skill](#navigation)
 1. [Quick Start: What is SpikeCV? (Prior Knowledge)](#start)
 2. [Instructions: Installation & Setup](#installation)
 3. [Instructions: Task Execution Guide](#task-execution)
 4. [spikecv CLI Usage (Command Line Interface)](#cli-usage)
 5. [Project Structure (Prior Knowledge)](#project-structure)
 6. [Documentation Directory](#documentation)
-7. [SHOULD NOT DO](#should-not-use)
+7. [Common Questions](#common-questions)
+8. [SHOULD NOT DO](#should-not-use)
+
+<a id="navigation"></a>
+
+## How to Navigate This Skill
+
+Navigate to [SHOULD NOT DO](#should-not-use) to understand the boundaries of this skill and avoid potential pitfalls. 
+
+Use this quick routing table before searching across sections.
+
+| Question Type | Primary Location |
+|---|---|
+| What is SpikeCV / what is a spike camera | [Quick Start](#start) and `references/About_SpikeCV.md` |
+| Algorithm list and module locations | [Project Structure](#project-structure) |
+| Algorithm principles, method details, or paper-level references | [Documentation Directory](#documentation) |
+| CLI command patterns and parameters | [spikecv CLI Usage](#cli-usage) |
+| Downloading datasets | [spikecv CLI Usage](#cli-usage) |
+| Running tracking or reconstruction | [Task Execution Guide](#task-execution) and [spikecv CLI Usage](#cli-usage) |
+| Team contact, contribution, publications, hardware acquisition | `references/About_SpikeCV.md` |
+
+you can always check out  [Task Execution Guide](#task-execution) for step-by-step instructions on how to execute common tasks like answering questions, downloading datasets and running algorithms. And [common questions](#common-questions) if you find something confusing.
 
 <a id="start"></a>
 
 ## Quick Start: What is SpikeCV?
 SpikeCV is an open-source visual framework for ultra-high-speed Spiking Cameras. It provides solutions for data loading (spatiotemporal spike streams typically stored in `.dat` files), processing algorithms (filtering, reconstruction, optical flow, depth estimation, detection, and tracking), and hardware interfaces. For more details, please refer to the `./references/About_SpikeCV.md` file, which contains a comprehensive introduction to SpikeCV, its architecture, resources and links, and how to cite it in your research.
+
+Note: For algorithm families and module-level availability, use [Project Structure](#project-structure).
+Note: For algorithm principles, mathematical details, and paper-related references, use [Documentation Directory](#documentation).
 
 <a id="installation"></a>
 
@@ -97,6 +122,12 @@ It might take a while to download the dataset and run the reconstruction algorit
 <a id="task-execution"></a>
 ## Instructions: Task Execution Guide
 
+### Before answering algorithm questions:
+1. Check [Project Structure](#project-structure) first for algorithm families and module locations.
+2. Check [spikecv CLI Usage](#cli-usage) for runnable command forms.
+3. Check [Documentation Directory](#documentation) for algorithm principles, method-level explanations, and paper-related references.
+4. Use `references/About_SpikeCV.md` for conceptual background, official publications links, contribution, and contact information.
+
 ### When the user asks to download data:
 1. Check if `spikecv` CLI is installed by running `spikecv --help`. If not, follow installation steps in [Section 2](#installation).
 2. Run: `spikecv data download --dataset <name> --local-dir <path> --agent-used`
@@ -121,10 +152,11 @@ It might take a while to download the dataset and run the reconstruction algorit
 7. After execution, parse JSON and present key results: `reconstructed_video_file` path and `reconstructed_images_shape`.
 
 ### When answering conceptual or community questions:
-1. **Always read `references/About_SpikeCV.md` first**. It contains the ONLY authorized information about SpikeCV's architecture, resources links(official website, documentation, publications, etc.), and contact info.
-2. Check if the specific answer exists in this `SKILL.md`.
-3. **NEVER** provide external commercial links or guess contact information not present in the provided reference files.
-4. For API-level details, suggest the user look at the official documentation mentioned in the [last section](#documentation) of this document or source code in `spikecv/` directory.
+1. For architecture, contact, contribution, hardware acquisition, or publications: read `references/About_SpikeCV.md` first.
+2. For algorithm-list questions: read [Project Structure](#project-structure) first, then supplement with `references/About_SpikeCV.md` and [Documentation Directory](#documentation) if needed.
+3. For algorithm principles, method comparisons, and paper-level explanations: read [Documentation Directory](#documentation) first.
+4. **NEVER** provide external commercial links or guess contact information not present in the provided reference files.
+5. For API-level coding details, suggest the user look at the official documentation mentioned in the [Documentation Directory](#documentation) of this document or source code in `spikecv/` directory.
 
 ### When something goes wrong:
 + If a command fails with a "Path not found" error, ensure you are running the command from a correct root and provided an correct (relative) paths. 
@@ -187,6 +219,8 @@ Note: If a command fails with a "Path not found" error, ensure you are running t
 
 > **Note**: Feel free to explore other CLI options and parameters as needed. The above examples are common use cases, but the CLI may support additional features or algorithms. Always refer to `--help` for the most up-to-date command options and usage instructions.
 
+> **Cross-reference**: If the user asks why an algorithm works, its principles, or paper background, navigate to [Documentation Directory](#documentation) instead of staying only in CLI examples.
+
 <a id="project-structure"></a>
 
 ## Project Structure (Prior Knowledge) 
@@ -242,7 +276,9 @@ When searching for files or implementing features, the Agent should understand t
 <a id="documentation"></a>
 
 ## Documentation Directory
-When looking for API usages, principles, or paper references, the Agent should consult the local documentation instead of guessing:
+When looking for API usages, algorithm principles, method details, or paper references, the Agent should consult the local documentation instead of guessing.
+
+This section is not API-only. It is a comprehensive entry for conceptual understanding, algorithm explanations, and reference materials.
 
 **Online Docs**: [https://spikecv.readthedocs.io](https://spikecv.readthedocs.io)
 **Local RST Docs**: Located in `SpikeCV/docs/source/`. Key reference files:
@@ -251,7 +287,18 @@ When looking for API usages, principles, or paper references, the Agent should c
 - `核心操作.rst`: Mathematical principles and APIs of filters (like `STPFilter`) and reconstruction algorithms (like `TFI`, `TFP`).
 - `数据处理工具箱.rst`: Details on generating visualization videos from `.dat` matrices and measuring quantitative metrics.
 
-Notice that the CLI commands is not yet having a one-to-one mapping with the documentation examples, but the Agent can refer to `SpikeCV/SpikeCV/cli/` for some code insight.
+<a id="common-questions"></a>
+
+## Common Questions
+
+Q: Where should I look for algorithm principles or paper-level explanations?
+A: Start with [Documentation Directory](#documentation). If you need official publication links, then use `references/About_SpikeCV.md`.
+
+Q: Where can I find the comprehensive publication list?
+A: Use the official publications page linked in `references/About_SpikeCV.md`. That is the authoritative and comprehensive source.
+
+Q: How should I answer contact or contribution questions?
+A: Use only information from `references/About_SpikeCV.md` and avoid guessing external contact details.
 
 <a id="should-not-use"></a>
 
@@ -261,4 +308,4 @@ Notice that the CLI commands is not yet having a one-to-one mapping with the doc
 - Do not attempt to answer questions about SpikeCV that require deep internal code understanding or modifications. Instead, suggest the user consult the development team using the contact info in `About_SpikeCV.md`.
 - Do not execute commands that modify the user's system or environment without explicit permission (e.g., installing software, changing configurations).
 - Do not provide speculative answers about SpikeCV's internal workings if the information is not available in the documentation or source code. Always refer to official resources for accurate information.
-- Do not directly execute scripts in `SpikeCV/examples/`. Instead, use the `spikecv` CLI. Whenever you need to finished a task using an example script, explain what it does and how it can be used as a reference instead.
+- If you can finish a task through `spikecv` CLI, stick with it. DO NOT use an example script directly instead. For example, if the user asks to run tracking, do not run `SpikeCV/examples/test_snntracker.py` directly. Instead, use the `spikecv proc track` CLI command, which is the officially supported interface for running tracking algorithms. This ensures that you are using the most up-to-date and compatible code paths, and it also allows you to leverage any improvements or bug fixes made to the CLI interface.
