@@ -15,3 +15,7 @@ npx skills add https://github.com/LHS183019/spikecv-helper --skill spikecv-helpe
 
 If you have any questions, please contact the team through the following email address:
 * spikecv@outlook.com
+
+## Download History
+
+[![Download History](https://skill-history.com/chart/lhs183019/spikecv-helper.svg)](https://skill-history.com/lhs183019/spikecv-helper)
